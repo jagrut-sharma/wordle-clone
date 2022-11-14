@@ -9,13 +9,14 @@
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   --background-color: hsl(240, 3%, 7%);
   --header-border-color: #3a3a3c;
-  --background-key-color: hsl(
+  /* --background-key-color: hsl(
     var(--hue, 200),
     var(--saturation, 1%),
     calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
-  );
+  ); */
   /* This tells the default value of hue, saturation and lightness variable, but lightness value can't be changed in root folder.*/
   --key-color: #fff;
+  --border-tile-color: hsl(240, 2%, 23%);
 }
 
 body {
@@ -26,7 +27,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
-  font-size: clamp(0.5rem, 2.5vmin, 1.75rem);
+  font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
 }
 
 h1 {
@@ -36,7 +37,8 @@ h1 {
 }
 
 .keyboard {
-  margin-top: 2rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: grid;
   grid-template-columns: repeat(20, minmax(auto, 1.25em));
   grid-auto-rows: 3em;
@@ -96,4 +98,34 @@ h1 {
 .key:hover,
 .key:focus {
   --lightness-offset: 10%;
+}
+
+.guess-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: 0.25rem;
+  justify-content: center;
+  align-content: center; /* Useful when grid sizes are less than container and used to center the grid => justify for hoqizontal and align for vertical*/
+  flex-grow: 1;
+}
+
+.tile {
+  border: 0.05em solid var(--border-tile-color);
+  color: var(--key-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: bold;
+  user-select: none;
+}
+
+.tile[data-state="active"] {
+  border-color: hsl(200, 3%, 45%);
+}
+
+.tile[data-state="wrong"] {
+  background-color: hsl(240, 2%, 23%);
 }
