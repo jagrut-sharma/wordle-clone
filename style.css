@@ -5,9 +5,17 @@
 }
 
 :root {
+  /* Values taken from Wordle Site */
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   --background-color: hsl(240, 3%, 7%);
   --header-border-color: #3a3a3c;
+  --background-key-color: hsl(
+    var(--hue, 200),
+    var(--saturation, 1%),
+    calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+  );
+  /* This tells the default value of hue, saturation and lightness variable, but lightness value can't be changed in root folder.*/
+  --key-color: #fff;
 }
 
 body {
@@ -29,9 +37,63 @@ h1 {
 
 .keyboard {
   margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: 0.25em;
+  /* justify-content: center; */
 }
 
 .key {
-  font-family: inherit;
   font-size: inherit;
+  font-family: inherit;
+  border: none;
+  padding: 0;
+  grid-column: span 2;
+  border-radius: 0.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(
+    var(--hue, 200),
+    var(--saturation, 1%),
+    calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+  );
+  color: var(--key-color);
+  fill: var(--key-color);
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none; /* Prevents people from selecting text on keyboard*/
+}
+
+.large {
+  grid-column: span 3;
+}
+
+.large svg {
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.key.wrong {
+  --hue: 240;
+  --saturation: 2%;
+  --lightness: 23%;
+}
+
+.key.wrong-location {
+  --hue: 49;
+  --saturation: 51%;
+  --lightness: 47%;
+}
+
+.key.correct {
+  --hue: 115;
+  --saturation: 29%;
+  --lightness: 43%;
+}
+
+.key:hover,
+.key:focus {
+  --lightness-offset: 10%;
 }
