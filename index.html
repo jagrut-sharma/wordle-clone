@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle Clone</title>
     <link rel="stylesheet" href="./style.css" />
+    <script defer src="./app.js"></script>
   </head>
   <body>
     <h1>WORDLE</h1>
 
-    <div class="guess-grid-container">
-      <div class="tile">q</div>
-      <div data-state="active" class="tile">w</div>
-      <div data-state="wrong" class="tile">e</div>
-      <div class="tile">r</div>
-      <div class="tile">t</div>
-      <div class="tile">y</div>
+    <div data-guess-grid class="guess-grid-container">
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
       <div class="tile"></div>
       <div class="tile"></div>
       <div class="tile"></div>
@@ -43,7 +44,7 @@
       <div class="tile"></div>
     </div>
 
-    <div class="keyboard">
+    <div data-keyboard class="keyboard">
       <button class="key" data-key="Q">Q</button>
       <button class="key" data-key="W">W</button>
       <button class="key" data-key="E">E</button>
