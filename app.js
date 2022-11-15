@@ -15300,3 +15300,55 @@ function fetchTodaysWord() {
   const dayOffset = milliSecondOffset / 1000 / 60 / 60 / 24;
   return targetWords[Math.floor(dayOffset)];
 }
+
+function startInteraction() {
+  document.addEventListener("keydown", keyPressHandler);
+  keyboard.addEventListener("click", keyClickHandler);
+}
+// function stopInteraction(){}
+
+startInteraction();
+
+function keyPressHandler(e) {
+  console.log(e.key);
+  //   console.log(e.key.match(/^[a-z]$/i));
+  // ^ => represents start, $ => represents end. /[a-z]/ => regex, i indicates case insensitive
+  if (e.key.match(/^[a-z]$/i)) {
+    keyPressed(e.key);
+    return;
+  }
+  if (e.key === "Enter") {
+    enterPressed();
+    return;
+  }
+  if (e.key === "Backspace") {
+    deletePressed();
+    return;
+  }
+}
+
+function keyClickHandler(e) {
+  //.matches() tells whether a DOM element will be selected or not with the following selector? => returns true/false
+  if (e.target.matches("[data-key]")) {
+    keyPressed(e.target.dataset.key);
+    return;
+  }
+  if (e.target.matches("[data-enter]")) {
+    enterPressed();
+    return;
+  }
+  if (e.target.matches("[data-bksp]")) {
+    deletePressed();
+    return;
+  }
+}
+
+function keyPressed(key) {
+  console.log(key);
+}
+function enterPressed() {
+  console.log(`Enter`);
+}
+function deletePressed(key) {
+  console.log(`Delete`);
+}
