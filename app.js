@@ -15293,7 +15293,9 @@ const dictionary = [
 ];
 
 const keyboard = document.querySelector("[data-keyboard]");
+const guessGrid = document.querySelector("[data-guess-grid]");
 const todaysWord = fetchTodaysWord();
+const wordLength = 5;
 
 function fetchTodaysWord() {
   const milliSecondOffset = Date.now() - new Date(2022, 0, 1);
@@ -15305,12 +15307,14 @@ function startInteraction() {
   document.addEventListener("keydown", keyPressHandler);
   keyboard.addEventListener("click", keyClickHandler);
 }
-// function stopInteraction(){}
+function stopInteraction() {
+  document.removeEventListener("keydown", keyPressHandler);
+  keyboard.removeEventListener("click", keyClickHandler);
+}
 
 startInteraction();
 
 function keyPressHandler(e) {
-  console.log(e.key);
   //   console.log(e.key.match(/^[a-z]$/i));
   // ^ => represents start, $ => represents end. /[a-z]/ => regex, i indicates case insensitive
   if (e.key.match(/^[a-z]$/i)) {
@@ -15344,11 +15348,38 @@ function keyClickHandler(e) {
 }
 
 function keyPressed(key) {
-  console.log(key);
+  const activeTiles = getActiveTiles();
+  if (activeTiles.length >= wordLength) return;
+  const nextTile = guessGrid.querySelector(":not([data-letter])");
+  nextTile.dataset.letter = key.toLowerCase();
+  nextTile.dataset.state = "active";
+  nextTile.innerText = key;
 }
 function enterPressed() {
-  console.log(`Enter`);
+  const activeTiles = [...getActiveTiles()]; // returns array due to spread
+  //   const preactiveTiles = getActiveTiles(); // returns node list that does not have reduce method
+
+  const wordEntered = activeTiles.reduce(function (word, tileElement) {
+    return word + tileElement.dataset.letter;
+  }, "");
+
+  wordPresent(wordEntered);
 }
-function deletePressed(key) {
-  console.log(`Delete`);
+function deletePressed() {
+  const activeTiles = getActiveTiles();
+  const currTile = activeTiles[activeTiles.length - 1];
+  console.log(currTile);
+  currTile.innerText = "";
+  delete currTile.dataset.letter;
+  delete currTile.dataset.state;
+}
+
+function getActiveTiles() {
+  return guessGrid.querySelectorAll('[data-state="active"]');
+}
+
+function wordPresent(word) {
+  if (!dictionary.includes(word)) {
+    console.log("word not present");
+  }
 }
