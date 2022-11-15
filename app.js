@@ -15294,6 +15294,7 @@ const dictionary = [
 
 const keyboard = document.querySelector("[data-keyboard]");
 const guessGrid = document.querySelector("[data-guess-grid]");
+const alertContainer = document.querySelector("[data-alert-container]");
 const todaysWord = fetchTodaysWord();
 const wordLength = 5;
 
@@ -15363,12 +15364,20 @@ function enterPressed() {
     return word + tileElement.dataset.letter;
   }, "");
 
-  wordPresent(wordEntered);
+  if (wordEntered.length !== wordLength) {
+    showAlert("Word entered < 5");
+    return;
+  }
+  if (!dictionary.includes(wordEntered)) {
+    showAlert("Word not present");
+    return;
+  }
+  //   Can be wrong or right
 }
 function deletePressed() {
   const activeTiles = getActiveTiles();
   const currTile = activeTiles[activeTiles.length - 1];
-  console.log(currTile);
+  if (currTile === undefined) return;
   currTile.innerText = "";
   delete currTile.dataset.letter;
   delete currTile.dataset.state;
@@ -15378,8 +15387,16 @@ function getActiveTiles() {
   return guessGrid.querySelectorAll('[data-state="active"]');
 }
 
-function wordPresent(word) {
-  if (!dictionary.includes(word)) {
-    console.log("word not present");
-  }
+function showAlert(message, duration = 1500) {
+  const alert = document.createElement("div");
+  alert.innerText = message;
+  alert.classList.add("alert");
+  alertContainer.prepend(alert);
+  if (duration == null) return;
+  setTimeout(() => {
+    alert.classList.add("hide");
+    alert.addEventListener("transitionend", () => {
+      alert.remove();
+    });
+  }, duration);
 }

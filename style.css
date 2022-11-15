@@ -17,6 +17,7 @@
   /* This tells the default value of hue, saturation and lightness variable, but lightness value can't be changed in root folder.*/
   --key-color: #fff;
   --border-tile-color: hsl(240, 2%, 23%);
+  --alert-color: hsl(204, 7%, 85%);
 }
 
 body {
@@ -139,4 +140,29 @@ h1 {
 .tile[data-state="correct"] {
   border: none;
   background-color: hsl(115, 29%, 43%);
+}
+
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  z-index: 1;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column; /*To make them appear one after another*/
+  align-items: center;
+}
+
+.alert {
+  pointer-events: none;
+  background-color: var(--alert-color);
+  padding: 0.75em;
+  border-radius: 0.25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: 0.5em;
+}
+
+.alert.hide {
+  opacity: 0;
 }
