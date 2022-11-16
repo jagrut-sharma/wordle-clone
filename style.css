@@ -254,9 +254,14 @@ h1 {
   }
 
   .keyboard {
-    margin: 1.2em 0 2em;
+    /* margin: 1.2em 0 2em; */
+    margin: 1.2em 0 0;
     grid-template-columns: repeat(20, minmax(auto, 1.5em));
     grid-auto-rows: 6em;
     gap: 0.45em;
+    padding: 0.25em;
+  }
+  .tile {
+    font-size: 3.5em;
   }
 }
