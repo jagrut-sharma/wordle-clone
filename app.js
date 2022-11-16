@@ -15477,7 +15477,7 @@ function danceTiles(tiles) {
 }
 
 function zoomTile(tile) {
-  const zoomDuration = 100;
+  const zoomDuration = 50;
   setTimeout(() => {
     tile.classList.add("zoom");
     tile.addEventListener("animationend", () => {
