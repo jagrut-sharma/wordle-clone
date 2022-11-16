@@ -238,3 +238,25 @@ h1 {
     transform: scale(1);
   }
 }
+
+@media screen and (max-width: 650px) {
+  body {
+    justify-content: space-between;
+  }
+  h1 {
+    font-size: 3em;
+  }
+  .guess-grid-container {
+    flex-grow: 0;
+    grid-template-columns: repeat(5, 7em);
+    grid-template-rows: repeat(6, 7em);
+    margin-top: 1.5em;
+  }
+
+  .keyboard {
+    margin: 1.2em 0 2em;
+    grid-template-columns: repeat(20, minmax(auto, 1.5em));
+    grid-auto-rows: 6em;
+    gap: 0.45em;
+  }
+}
