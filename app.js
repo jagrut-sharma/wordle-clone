@@ -15365,14 +15365,16 @@ function enterPressed() {
   }, "");
 
   if (wordEntered.length !== wordLength) {
-    showAlert("Word entered < 5");
+    showAlert(`Please enter a ${wordLength} letter word`);
+    shakeTiles(activeTiles);
     return;
   }
   if (!dictionary.includes(wordEntered)) {
     showAlert("Word not present");
+    shakeTiles(activeTiles);
     return;
   }
-  //   Can be wrong or right
+  //  Can be wrong or right
 }
 function deletePressed() {
   const activeTiles = getActiveTiles();
@@ -15393,10 +15395,20 @@ function showAlert(message, duration = 1500) {
   alert.classList.add("alert");
   alertContainer.prepend(alert);
   if (duration == null) return;
+
   setTimeout(() => {
     alert.classList.add("hide");
     alert.addEventListener("transitionend", () => {
       alert.remove();
     });
   }, duration);
+}
+
+function shakeTiles(tiles) {
+  tiles.forEach((tile) => {
+    tile.classList.add("shake");
+    tile.addEventListener("animationend", () => {
+      tile.classList.remove("shake");
+    });
+  });
 }

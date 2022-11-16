@@ -154,7 +154,7 @@ h1 {
 }
 
 .alert {
-  pointer-events: none;
+  pointer-events: none; /* Makes it not react to any pointer event */
   background-color: var(--alert-color);
   padding: 0.75em;
   border-radius: 0.25em;
@@ -165,4 +165,29 @@ h1 {
 
 .alert.hide {
   opacity: 0;
+}
+
+.tile.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+@keyframes shake {
+  10% {
+    transform: translateX(5%);
+  }
+  30% {
+    transform: translateX(-5%);
+  }
+  50% {
+    transform: translateX(2.5%);
+  }
+  70% {
+    transform: translateX(-2.5%);
+  }
+  90% {
+    transform: translateX(1.5%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
